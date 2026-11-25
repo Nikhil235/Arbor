@@ -198,10 +198,12 @@ export function BotanicalBackdrop({
   eager?: boolean
   children?: ReactNode
 }) {
-  const [failed, setFailed] = useState(false)
+  const [failedSrc, setFailedSrc] = useState<string | null>(null)
+  const failed = failedSrc === src
   const hasExplicitPosition = /\b(absolute|fixed|sticky)\b/.test(className ?? '')
   return (
     <div
+      data-botanical-backdrop=""
       className={cx(
         !hasExplicitPosition && 'relative',
         'overflow-hidden bg-gradient-to-br from-night via-forest-dark to-night',
@@ -215,7 +217,7 @@ export function BotanicalBackdrop({
           loading={eager ? 'eager' : 'lazy'}
           decoding="async"
           fetchPriority={eager ? 'high' : 'auto'}
-          onError={() => setFailed(true)}
+          onError={() => setFailedSrc(src)}
           className="pointer-events-none absolute inset-0 h-full w-full select-none object-cover object-center"
         />
       )}
