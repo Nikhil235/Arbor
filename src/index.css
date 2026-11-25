@@ -1,0 +1,154 @@
+@import 'tailwindcss';
+
+@custom-variant hover-fine (@media (hover: hover) and (pointer: fine));
+
+@theme {
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Arbor botanical palette */
+  --color-ink: #17251c;
+  --color-ink-secondary: #4a574d;
+  --color-forest: #244a28;
+  --color-forest-dark: #1b391e;
+  --color-night: #112114;
+  --color-moss: #5c8d47;
+  --color-lime: #b7d96b;
+  --color-sage: #e8efdf;
+  --color-sage-soft: #f4f8f0;
+  --color-mist: #f1f5ee;
+  --color-canvas: #f8faf6;
+  --color-paper: #fafbf9;
+  --color-line: #e3eae0;
+  --color-line-hover: #c6d4c1;
+  --color-line-strong: #c6d1c3;
+  --color-muted: #525e54;
+  --color-soft: #5f6b61;
+  --color-danger: #a33a2c;
+  --color-danger-soft: #fbeeeb;
+  --color-amber-soft: #f6f3e6;
+  --color-amber-border: #e6dfc3;
+  --color-amber-ink: #695b2b;
+  --color-on-dark-muted: #d7e3d2;
+  --color-on-dark-soft: #b9c7b6;
+  --color-on-dark-subtle: #9dae9a;
+
+  /* Shared motion easing curves */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+@layer base {
+  html {
+    scroll-padding-top: 6.5rem;
+    scrollbar-color: var(--color-line-strong) transparent;
+  }
+
+  body {
+    @apply bg-canvas text-ink antialiased;
+    font-family: var(--font-sans);
+    font-feature-settings: 'cv11', 'ss01';
+    font-optical-sizing: auto;
+    caret-color: var(--color-forest);
+  }
+
+  ::selection {
+    background: rgb(183 217 107 / 0.45);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-forest);
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.popover-surface {
+  transition:
+    opacity 180ms var(--ease-out),
+    transform 180ms var(--ease-out);
+
+  @starting-style {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+.sheet-surface {
+  transition:
+    opacity 240ms var(--ease-drawer),
+    transform 240ms var(--ease-drawer);
+
+  @starting-style {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.98);
+  }
+}
+
+.scrim-surface {
+  transition: opacity 220ms var(--ease-out);
+
+  @starting-style {
+    opacity: 0;
+  }
+}
+
+.notice-enter {
+  transition:
+    opacity 200ms var(--ease-out),
+    transform 200ms var(--ease-out);
+
+  @starting-style {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 150ms !important;
+    transition-property: opacity, color, background-color, border-color !important;
+    scroll-behavior: auto !important;
+  }
+
+  .popover-surface,
+  .sheet-surface,
+  .notice-enter {
+    @starting-style {
+      opacity: 0;
+      transform: none;
+    }
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass-surface {
+    background-color: var(--color-canvas) !important;
+    backdrop-filter: none !important;
+  }
+
+  .glass-surface-dark {
+    background-color: var(--color-forest-dark) !important;
+    backdrop-filter: none !important;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --color-line: #9ba898;
+    --color-line-strong: #6f7d6d;
+  }
+}

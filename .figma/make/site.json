@@ -1,0 +1,10 @@
+{
+  "description": "A multi-page website for Arbor CRM that helps businesses explore sales tools, compare plans, find integrations, and book a demo.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
